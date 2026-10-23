@@ -46,10 +46,10 @@ dev = [
 shear = "windtunnel_shear.cli.main:app"
 
 [project.urls]
-Homepage = "https://github.com/ButterflyLabs-org/windtunnel-shear"
-Repository = "https://github.com/ButterflyLabs-org/windtunnel-shear"
-Issues = "https://github.com/ButterflyLabs-org/windtunnel-shear/issues"
-Changelog = "https://github.com/ButterflyLabs-org/windtunnel-shear/blob/main/CHANGELOG.md"
+Homepage = "https://github.com/MothLabs-org/windtunnel-shear"
+Repository = "https://github.com/MothLabs-org/windtunnel-shear"
+Issues = "https://github.com/MothLabs-org/windtunnel-shear/issues"
+Changelog = "https://github.com/MothLabs-org/windtunnel-shear/blob/main/CHANGELOG.md"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/windtunnel_shear"]

@@ -5,7 +5,7 @@
 [![PyPI version](https://img.shields.io/pypi/v/windtunnel-shear.svg)](https://pypi.org/project/windtunnel-shear/)
 [![Python versions](https://img.shields.io/pypi/pyversions/windtunnel-shear.svg)](https://pypi.org/project/windtunnel-shear/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![CI](https://github.com/ButterflyLabs-org/windtunnel-shear/actions/workflows/ci.yml/badge.svg)](https://github.com/ButterflyLabs-org/windtunnel-shear/actions)
+[![CI](https://github.com/MothLabs-org/windtunnel-shear/actions/workflows/ci.yml/badge.svg)](https://github.com/MothLabs-org/windtunnel-shear/actions)
 
 ## Install
 
@@ -124,7 +124,7 @@ def log_usage(req: InterceptedRequest, resp: InterceptedResponse) -> Intercepted
 
 ## Part of Wind Tunnel
 
-Shear is the first building block of the [Wind Tunnel](https://github.com/ButterflyLabs-org) family of LLM testing tools by [Butterfly Labs](https://butterflylabs.org).
+Shear is the first building block of the [Wind Tunnel](https://github.com/MothLabs-org) family of LLM testing tools by [Butterfly Labs](https://www.mothlabs.org).
 
 ## License
 

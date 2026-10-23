@@ -6,7 +6,7 @@ Thanks for your interest in contributing! Here's how to get started.
 
 ```bash
 # Clone the repo
-git clone https://github.com/ButterflyLabs-org/windtunnel-shear.git
+git clone https://github.com/MothLabs-org/windtunnel-shear.git
 cd windtunnel-shear
 
 # Install in dev mode

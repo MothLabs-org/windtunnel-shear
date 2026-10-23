@@ -23,4 +23,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Configurable timeout** — `--timeout 30s` for upstream request timeout
 - **Custom exception hierarchy** — ShearError, HookError, ReplayMissError, UpstreamError, FaultInjectedError with full context
 
-[0.1.0]: https://github.com/ButterflyLabs-org/windtunnel-shear/releases/tag/v0.1.0
+[0.1.0]: https://github.com/MothLabs-org/windtunnel-shear/releases/tag/v0.1.0
