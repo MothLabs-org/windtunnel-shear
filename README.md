@@ -124,7 +124,7 @@ def log_usage(req: InterceptedRequest, resp: InterceptedResponse) -> Intercepted
 
 ## Part of Wind Tunnel
 
-Shear is the first building block of the [Wind Tunnel](https://github.com/MothLabs-org) family of LLM testing tools by [Butterfly Labs](https://www.mothlabs.org).
+Shear is the first building block of the [Wind Tunnel](https://github.com/MothLabs-org) family of LLM testing tools by [Moth Labs](https://www.mothlabs.org).
 
 ## License
 

@@ -6,7 +6,7 @@
 - **Import:** `from windtunnel_shear import ...`
 - **License:** MIT
 - **Python:** 3.10+
-- **Organization:** Butterfly Labs
+- **Organization:** Moth Labs
 - **Part of:** The Wind Tunnel family (first building block)
 ---
 ## What Shear Is
