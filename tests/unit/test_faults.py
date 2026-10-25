@@ -117,10 +117,12 @@ class TestFaultEngine:
 
     async def test_first_fault_wins(self, req: InterceptedRequest) -> None:
         """First fault that fires short-circuits."""
-        engine = FaultEngine([
-            FaultSpec("rate-limit", "1.0"),
-            FaultSpec("error", "503"),
-        ])
+        engine = FaultEngine(
+            [
+                FaultSpec("rate-limit", "1.0"),
+                FaultSpec("error", "503"),
+            ]
+        )
         result = await engine.maybe_inject(req)
         assert result is not None
         assert result.status_code == 429  # rate-limit fires first

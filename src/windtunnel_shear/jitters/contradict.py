@@ -14,7 +14,9 @@ _CONTRADICTIONS = [
 
 
 def apply_contradict(
-    request: InterceptedRequest, *, variant: int = 0,
+    request: InterceptedRequest,
+    *,
+    variant: int = 0,
 ) -> InterceptedRequest:
     """Inject a contradictory user message opposing the system prompt.
 
@@ -30,7 +32,8 @@ def apply_contradict(
     """
     contradiction = _CONTRADICTIONS[variant % len(_CONTRADICTIONS)]
     contradiction_msg: dict[str, str] = {
-        "role": "user", "content": contradiction,
+        "role": "user",
+        "content": contradiction,
     }
 
     messages = request.messages

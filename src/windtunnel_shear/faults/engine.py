@@ -67,7 +67,8 @@ class FaultEngine:
         self._specs = specs or []
 
     async def maybe_inject(
-        self, request: InterceptedRequest,
+        self,
+        request: InterceptedRequest,
     ) -> InterceptedResponse | None:
         """Possibly inject a fault response instead of forwarding to upstream.
 
@@ -101,7 +102,8 @@ class FaultEngine:
         probability = float(spec.params)
         if random.random() < probability:
             return make_error_response(
-                429, f"shear:fault:rate_limit:{spec.params}",
+                429,
+                f"shear:fault:rate_limit:{spec.params}",
             )
         return None
 
@@ -117,7 +119,8 @@ class FaultEngine:
         probability = float(parts[1]) if len(parts) > 1 else 1.0
         if random.random() < probability:
             return make_error_response(
-                status_code, f"shear:fault:error:{spec.params}",
+                status_code,
+                f"shear:fault:error:{spec.params}",
             )
         return None
 
@@ -126,5 +129,6 @@ class FaultEngine:
         duration_ms = parse_duration(spec.params)
         await inject_latency(duration_ms)
         return make_error_response(
-            504, f"shear:fault:timeout:{spec.params}",
+            504,
+            f"shear:fault:timeout:{spec.params}",
         )

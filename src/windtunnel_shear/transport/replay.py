@@ -62,7 +62,8 @@ class ReplayServer:
             )
 
         intercepted = InterceptedRequest(
-            raw=body, timestamp=time.monotonic(),
+            raw=body,
+            timestamp=time.monotonic(),
         )
 
         try:
@@ -84,13 +85,15 @@ class ReplayServer:
             if self._on_miss == "fallback":
                 return JSONResponse(
                     {
-                        "choices": [{
-                            "message": {
-                                "role": "assistant",
-                                "content": "[shear:replay:fallback]",
-                            },
-                            "finish_reason": "stop",
-                        }],
+                        "choices": [
+                            {
+                                "message": {
+                                    "role": "assistant",
+                                    "content": "[shear:replay:fallback]",
+                                },
+                                "finish_reason": "stop",
+                            }
+                        ],
                     },
                     status_code=200,
                 )

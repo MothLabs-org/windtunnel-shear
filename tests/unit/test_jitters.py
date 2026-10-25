@@ -156,9 +156,7 @@ class TestNoisePerWord:
         result = req.messages[-1]["content"]
         original_words = ["What", "is", "the", "capital", "of", "France"]
         result_words = result.split()
-        unchanged = sum(
-            1 for a, b in zip(original_words, result_words, strict=True) if a == b
-        )
+        unchanged = sum(1 for a, b in zip(original_words, result_words, strict=True) if a == b)
         # With 6 words at 0.3 ratio, expect ~4 unchanged (probabilistic but seeded)
         assert unchanged >= 2, f"Too many words corrupted: {result}"
 
@@ -213,10 +211,12 @@ class TestJitterEngine:
         assert len(result.jitter_log) == 0
 
     def test_multiple_jitters_chain(self) -> None:
-        engine = JitterEngine([
-            JitterSpec("rephrase"),
-            JitterSpec("dilute", "1"),
-        ])
+        engine = JitterEngine(
+            [
+                JitterSpec("rephrase"),
+                JitterSpec("dilute", "1"),
+            ]
+        )
         req = _make_req("Hello", system_msg="You must be helpful")
         result = engine.apply(req)
         assert "should" in result.messages[0]["content"]

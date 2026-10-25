@@ -137,7 +137,8 @@ async def proxy_handler(request: Request) -> Response:
         if fault_resp is not None:
             _log(intercepted_req, fault_resp)
             return JSONResponse(
-                fault_resp.raw, status_code=fault_resp.status_code,
+                fault_resp.raw,
+                status_code=fault_resp.status_code,
             )
 
     # Resolve upstream
@@ -154,7 +155,7 @@ async def proxy_handler(request: Request) -> Response:
     path = request.path_params.get("path", "")
     upstream_path = urlparse(upstream).path.strip("/")
     if upstream_path and path.startswith(upstream_path):
-        path = path[len(upstream_path):].lstrip("/")
+        path = path[len(upstream_path) :].lstrip("/")
     upstream_url = f"{upstream.rstrip('/')}/{path}" if path else upstream
 
     # Forward headers (pass through auth, content-type, etc.)
@@ -169,11 +170,17 @@ async def proxy_handler(request: Request) -> Response:
 
     if intercepted_req.stream:
         return await _handle_streaming(
-            intercepted_req, upstream_url, forward_headers, start_time,
+            intercepted_req,
+            upstream_url,
+            forward_headers,
+            start_time,
         )
 
     return await _handle_non_streaming(
-        intercepted_req, upstream_url, forward_headers, start_time,
+        intercepted_req,
+        upstream_url,
+        forward_headers,
+        start_time,
     )
 
 
@@ -253,7 +260,10 @@ async def _handle_streaming(
     try:
         client = _get_client()
         async with client.stream(
-            "POST", upstream_url, json=intercepted_req.raw, headers=forward_headers,
+            "POST",
+            upstream_url,
+            json=intercepted_req.raw,
+            headers=forward_headers,
         ) as upstream_resp:
             # If upstream returned an error, read as JSON (not SSE)
             if upstream_resp.status_code >= 400:
@@ -277,7 +287,8 @@ async def _handle_streaming(
             else:
                 # Reassemble SSE stream into complete response
                 intercepted_resp = await reassemble_stream(
-                    upstream_resp.aiter_bytes(), upstream_resp.status_code,
+                    upstream_resp.aiter_bytes(),
+                    upstream_resp.status_code,
                 )
                 intercepted_resp.latency_ms = (time.monotonic() - start_time) * 1000
 

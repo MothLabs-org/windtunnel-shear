@@ -15,7 +15,8 @@ from windtunnel_shear.core.models import (
 
 
 def _classify_turn(
-    request: InterceptedRequest, response: InterceptedResponse,
+    request: InterceptedRequest,
+    response: InterceptedResponse,
 ) -> TurnType:
     """Classify a turn based on the request and response content."""
     if request.is_tool_result:
@@ -47,7 +48,9 @@ class SessionRecorder:
         return self._session
 
     def record_turn(
-        self, request: InterceptedRequest, response: InterceptedResponse,
+        self,
+        request: InterceptedRequest,
+        response: InterceptedResponse,
     ) -> None:
         """Record a single request/response turn.
 
@@ -74,7 +77,9 @@ class SessionRecorder:
             self._session.model = request.model
 
         turn = Turn(
-            turn_type=turn_type, request=request, response=response,
+            turn_type=turn_type,
+            request=request,
+            response=response,
         )
         self._current_episode.turns.append(turn)
         self._last_turn_type = turn_type

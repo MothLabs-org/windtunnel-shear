@@ -19,12 +19,17 @@ def _truncate(text: str, max_len: int = 80) -> str:
     """Truncate text for diff display."""
     if len(text) <= max_len:
         return f'"{text}"'
-    return f'"{text[:max_len - 3]}..."'
+    return f'"{text[: max_len - 3]}..."'
 
 
-_VALID_JITTER_TYPES = frozenset({
-    "noise", "contradict", "dilute", "rephrase",
-})
+_VALID_JITTER_TYPES = frozenset(
+    {
+        "noise",
+        "contradict",
+        "dilute",
+        "rephrase",
+    }
+)
 
 
 @dataclass
@@ -101,9 +106,7 @@ class JitterEngine:
                 label = spec.jitter_type
                 if spec.params:
                     label += f":{spec.params}"
-                current.jitter_log.append(
-                    f"{label} | {_truncate(before)} -> {_truncate(after)}"
-                )
+                current.jitter_log.append(f"{label} | {_truncate(before)} -> {_truncate(after)}")
         return current
 
     @staticmethod
@@ -117,7 +120,9 @@ class JitterEngine:
         return " | ".join(parts) if parts else ""
 
     def _apply_spec(
-        self, spec: JitterSpec, request: InterceptedRequest,
+        self,
+        spec: JitterSpec,
+        request: InterceptedRequest,
     ) -> InterceptedRequest:
         """Apply a single jitter spec."""
         if spec.jitter_type == "noise":

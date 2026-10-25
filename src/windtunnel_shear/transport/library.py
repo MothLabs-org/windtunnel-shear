@@ -83,11 +83,15 @@ class _CompletionsProxy(_Proxy):
             error_resp = _run_sync(registry.run_on_error(intercepted_req, exc))
             if error_resp is not None:
                 _log(
-                    intercepted_req, error_resp,
-                    verbose=verbose, json_output=json_output, quiet=quiet,
+                    intercepted_req,
+                    error_resp,
+                    verbose=verbose,
+                    json_output=json_output,
+                    quiet=quiet,
                 )
                 return _response_to_object(
-                    error_resp, response_class=_guess_response_class(target),
+                    error_resp,
+                    response_class=_guess_response_class(target),
                 )
             raise
 
@@ -103,13 +107,14 @@ class _CompletionsProxy(_Proxy):
         )
 
         # Run after_response hooks
-        intercepted_resp = _run_sync(
-            registry.run_after_response(intercepted_req, intercepted_resp)
-        )
+        intercepted_resp = _run_sync(registry.run_after_response(intercepted_req, intercepted_resp))
 
         _log(
-            intercepted_req, intercepted_resp,
-            verbose=verbose, json_output=json_output, quiet=quiet,
+            intercepted_req,
+            intercepted_resp,
+            verbose=verbose,
+            json_output=json_output,
+            quiet=quiet,
         )
 
         # If hooks modified the response, patch the original object

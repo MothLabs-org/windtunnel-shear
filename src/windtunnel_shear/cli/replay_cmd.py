@@ -10,14 +10,19 @@ import typer
 
 def replay_cmd(
     input_file: Path = typer.Option(
-        ..., "-i", "--input", help="Input session file path.",
+        ...,
+        "-i",
+        "--input",
+        help="Input session file path.",
     ),
     port: int = typer.Option(9800, help="Port to listen on."),
     match_mode: str = typer.Option(
-        "sequential", help="Matching strategy: sequential or exact.",
+        "sequential",
+        help="Matching strategy: sequential or exact.",
     ),
     on_miss: str = typer.Option(
-        "error", help="Cache-miss behavior: error, passthrough, or fallback.",
+        "error",
+        help="Cache-miss behavior: error, passthrough, or fallback.",
     ),
 ) -> None:
     """Replay recorded responses from a session file.
@@ -45,7 +50,9 @@ def replay_cmd(
     typer.echo(f"  Listening on http://0.0.0.0:{port}\n", err=True)
 
     server = ReplayServer(
-        session, match_mode=match_mode, on_miss=on_miss,
+        session,
+        match_mode=match_mode,
+        on_miss=on_miss,
     )
     app = server.create_app()
     uvicorn.run(app, host="0.0.0.0", port=port, log_level="warning")
