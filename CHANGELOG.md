@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Fixed
+
+- `shear proxy` and `shear record` no longer crash at startup with `TypeError: ... unexpected keyword argument 'on_shutdown'` when Starlette 1.0 or newer is installed. The proxy now closes its upstream HTTP client through Starlette's `lifespan` handler, which works on every supported Starlette version.
+
 ## [0.1.0.post1] - 2026-10-23
 
 ### Changed
@@ -29,5 +35,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Configurable timeout** — `--timeout 30s` for upstream request timeout
 - **Custom exception hierarchy** — ShearError, HookError, ReplayMissError, UpstreamError, FaultInjectedError with full context
 
+[Unreleased]: https://github.com/MothLabs-org/windtunnel-shear/compare/v0.1.0.post1...HEAD
 [0.1.0.post1]: https://github.com/MothLabs-org/windtunnel-shear/releases/tag/v0.1.0.post1
 [0.1.0]: https://github.com/MothLabs-org/windtunnel-shear/releases/tag/v0.1.0

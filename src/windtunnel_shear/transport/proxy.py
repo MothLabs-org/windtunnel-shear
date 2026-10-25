@@ -9,6 +9,8 @@ from __future__ import annotations
 import json
 import logging
 import time
+from collections.abc import AsyncIterator
+from contextlib import asynccontextmanager
 from dataclasses import dataclass, field
 from typing import Any
 from urllib.parse import urlparse
@@ -360,6 +362,15 @@ async def _on_shutdown() -> None:
         _http_client = None
 
 
+@asynccontextmanager
+async def _lifespan(_app: Starlette) -> AsyncIterator[None]:
+    """Server lifespan: close the shared upstream client on shutdown."""
+    try:
+        yield
+    finally:
+        await _on_shutdown()
+
+
 def create_app(config: ProxyConfig | None = None) -> Starlette:
     """Create the ASGI application for the proxy server.
 
@@ -377,5 +388,5 @@ def create_app(config: ProxyConfig | None = None) -> Starlette:
         routes=[
             Route("/{path:path}", proxy_handler, methods=["POST", "GET", "PUT", "DELETE"]),
         ],
-        on_shutdown=[_on_shutdown],
+        lifespan=_lifespan,
     )
