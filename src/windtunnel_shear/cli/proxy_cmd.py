@@ -14,16 +14,20 @@ def proxy_cmd(
     upstream: str | None = typer.Option(None, help="Upstream LLM API URL."),
     hooks: Path | None = typer.Option(None, help="Python file with hook definitions."),
     fault: list[str] | None = typer.Option(
-        None, help="Fault injection spec (e.g. rate-limit:0.3).",
+        None,
+        help="Fault injection spec (e.g. rate-limit:0.3).",
     ),
     jitter: list[str] | None = typer.Option(
-        None, help="Jitter spec (e.g. noise:0.1).",
+        None,
+        help="Jitter spec (e.g. noise:0.1).",
     ),
     timeout: str = typer.Option("120s", help="Upstream request timeout (e.g. 30s, 5000ms)."),
     verbose: bool = typer.Option(False, help="Show jitter diffs and enriched output."),
     debug: bool = typer.Option(False, help="Show full JSON request/response payloads."),
     json_output: bool = typer.Option(
-        False, "--json", help="Machine-readable JSON output.",
+        False,
+        "--json",
+        help="Machine-readable JSON output.",
     ),
     quiet: bool = typer.Option(False, help="Suppress output."),
 ) -> None:
@@ -63,7 +67,10 @@ def proxy_cmd(
             return engine.apply(req)
 
         registry.register(
-            jitter_hook, "before_request", name="jitter", stage="mutate",
+            jitter_hook,
+            "before_request",
+            name="jitter",
+            stage="mutate",
         )
 
     # Wire faults as before_request hooks (they short-circuit by returning
@@ -118,7 +125,8 @@ def _print_banner(
         typer.echo(f"  Upstream: {upstream}", err=True)
     else:
         typer.echo(
-            "  Upstream: auto-detect from Authorization header", err=True,
+            "  Upstream: auto-detect from Authorization header",
+            err=True,
         )
     if hooks:
         typer.echo(f"  Hooks: {hooks}", err=True)

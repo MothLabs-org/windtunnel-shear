@@ -32,7 +32,8 @@ def record_cmd(
 
     # Register an after_response hook that records every exchange
     def record_hook(
-        req: InterceptedRequest, resp: InterceptedResponse,
+        req: InterceptedRequest,
+        resp: InterceptedResponse,
     ) -> InterceptedResponse:
         recorder.record_turn(req, resp)
         return resp
@@ -55,7 +56,8 @@ def record_cmd(
             typer.echo(f"  Upstream: {upstream}", err=True)
         else:
             typer.echo(
-                "  Upstream: auto-detect from Authorization header", err=True,
+                "  Upstream: auto-detect from Authorization header",
+                err=True,
             )
         typer.echo("  Press Ctrl+C to stop and save.\n", err=True)
 
@@ -70,5 +72,6 @@ def record_cmd(
         )
         if not quiet:
             typer.echo(
-                f"\n  Saved {session.total_turns} turns to {output}", err=True,
+                f"\n  Saved {session.total_turns} turns to {output}",
+                err=True,
             )

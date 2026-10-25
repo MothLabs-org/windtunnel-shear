@@ -89,9 +89,7 @@ async def restream_response(response: InterceptedResponse) -> AsyncIterator[byte
     finish_reason = response.finish_reason or "stop"
 
     # 1. Role chunk
-    yield _encode_sse_frame(
-        _make_chunk_dict(response_id, model, created, {"role": "assistant"})
-    )
+    yield _encode_sse_frame(_make_chunk_dict(response_id, model, created, {"role": "assistant"}))
 
     # 2. Content chunks (split into word groups)
     if content:
@@ -110,22 +108,30 @@ async def restream_response(response: InterceptedResponse) -> AsyncIterator[byte
         # Send all tool calls in a single chunk with index info
         delta_tool_calls = []
         for idx, tc in enumerate(tool_calls):
-            delta_tool_calls.append({
-                "index": idx,
-                "id": tc.get("id", ""),
-                "type": tc.get("type", "function"),
-                "function": tc.get("function", {}),
-            })
+            delta_tool_calls.append(
+                {
+                    "index": idx,
+                    "id": tc.get("id", ""),
+                    "type": tc.get("type", "function"),
+                    "function": tc.get("function", {}),
+                }
+            )
         yield _encode_sse_frame(
             _make_chunk_dict(
-                response_id, model, created, {"tool_calls": delta_tool_calls},
+                response_id,
+                model,
+                created,
+                {"tool_calls": delta_tool_calls},
             )
         )
 
     # 4. Final chunk with finish_reason and usage
     yield _encode_sse_frame(
         _make_chunk_dict(
-            response_id, model, created, {},
+            response_id,
+            model,
+            created,
+            {},
             finish_reason=finish_reason,
             usage=usage,
         )

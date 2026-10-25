@@ -149,9 +149,7 @@ class TestWrap:
         client = _FakeClient()
         registry = HookRegistry()
 
-        def censor(
-            _req: InterceptedRequest, resp: InterceptedResponse
-        ) -> InterceptedResponse:
+        def censor(_req: InterceptedRequest, resp: InterceptedResponse) -> InterceptedResponse:
             resp.content = "[CENSORED]"
             return resp
 
@@ -182,11 +180,7 @@ class TestWrap:
 
         def handle_error(_req: InterceptedRequest, _err: Exception) -> InterceptedResponse:
             return InterceptedResponse(
-                raw={
-                    "choices": [
-                        {"message": {"content": "fallback"}, "finish_reason": "stop"}
-                    ]
-                },
+                raw={"choices": [{"message": {"content": "fallback"}, "finish_reason": "stop"}]},
                 status_code=200,
                 reason="error_handler",
             )

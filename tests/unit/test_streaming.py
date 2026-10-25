@@ -115,20 +115,38 @@ class TestReassembly:
         """Reassemble a response with tool calls spanning multiple chunks."""
         lines = [
             _sse_line(_make_chunk(role="assistant")),
-            _sse_line(_make_chunk(tool_calls=[{
-                "index": 0,
-                "id": "call_abc123",
-                "type": "function",
-                "function": {"name": "get_weather", "arguments": ""},
-            }])),
-            _sse_line(_make_chunk(tool_calls=[{
-                "index": 0,
-                "function": {"arguments": '{"city":'},
-            }])),
-            _sse_line(_make_chunk(tool_calls=[{
-                "index": 0,
-                "function": {"arguments": ' "Paris"}'},
-            }])),
+            _sse_line(
+                _make_chunk(
+                    tool_calls=[
+                        {
+                            "index": 0,
+                            "id": "call_abc123",
+                            "type": "function",
+                            "function": {"name": "get_weather", "arguments": ""},
+                        }
+                    ]
+                )
+            ),
+            _sse_line(
+                _make_chunk(
+                    tool_calls=[
+                        {
+                            "index": 0,
+                            "function": {"arguments": '{"city":'},
+                        }
+                    ]
+                )
+            ),
+            _sse_line(
+                _make_chunk(
+                    tool_calls=[
+                        {
+                            "index": 0,
+                            "function": {"arguments": ' "Paris"}'},
+                        }
+                    ]
+                )
+            ),
             _sse_line(_make_chunk(finish_reason="tool_calls")),
             _sse_line("[DONE]"),
         ]
@@ -146,12 +164,24 @@ class TestReassembly:
         """Reassemble response with multiple tool calls by index."""
         lines = [
             _sse_line(_make_chunk(role="assistant")),
-            _sse_line(_make_chunk(tool_calls=[
-                {"index": 0, "id": "call_1", "type": "function",
-                 "function": {"name": "fn1", "arguments": ""}},
-                {"index": 1, "id": "call_2", "type": "function",
-                 "function": {"name": "fn2", "arguments": ""}},
-            ])),
+            _sse_line(
+                _make_chunk(
+                    tool_calls=[
+                        {
+                            "index": 0,
+                            "id": "call_1",
+                            "type": "function",
+                            "function": {"name": "fn1", "arguments": ""},
+                        },
+                        {
+                            "index": 1,
+                            "id": "call_2",
+                            "type": "function",
+                            "function": {"name": "fn2", "arguments": ""},
+                        },
+                    ]
+                )
+            ),
             _sse_line(_make_chunk(tool_calls=[{"index": 0, "function": {"arguments": '{"a":1}'}}])),
             _sse_line(_make_chunk(tool_calls=[{"index": 1, "function": {"arguments": '{"b":2}'}}])),
             _sse_line(_make_chunk(finish_reason="tool_calls")),
@@ -373,10 +403,12 @@ class TestRoundtrip:
             _sse_line(_make_chunk(content="The capital ")),
             _sse_line(_make_chunk(content="of France ")),
             _sse_line(_make_chunk(content="is Paris.")),
-            _sse_line(_make_chunk(
-                finish_reason="stop",
-                usage={"prompt_tokens": 10, "completion_tokens": 8, "total_tokens": 18},
-            )),
+            _sse_line(
+                _make_chunk(
+                    finish_reason="stop",
+                    usage={"prompt_tokens": 10, "completion_tokens": 8, "total_tokens": 18},
+                )
+            ),
             _sse_line("[DONE]"),
         ]
 
@@ -405,12 +437,18 @@ class TestRoundtrip:
         """Tool calls survive a roundtrip."""
         original_lines = [
             _sse_line(_make_chunk(role="assistant")),
-            _sse_line(_make_chunk(tool_calls=[{
-                "index": 0,
-                "id": "call_rt1",
-                "type": "function",
-                "function": {"name": "lookup", "arguments": '{"key":"val"}'},
-            }])),
+            _sse_line(
+                _make_chunk(
+                    tool_calls=[
+                        {
+                            "index": 0,
+                            "id": "call_rt1",
+                            "type": "function",
+                            "function": {"name": "lookup", "arguments": '{"key":"val"}'},
+                        }
+                    ]
+                )
+            ),
             _sse_line(_make_chunk(finish_reason="tool_calls")),
             _sse_line("[DONE]"),
         ]

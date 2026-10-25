@@ -35,7 +35,7 @@ def _parse_sse_frames(raw: str) -> tuple[list[str], bool]:
         if not line or line.startswith(":"):
             continue
         if line.startswith("data:"):
-            data = line[len("data:"):].strip()
+            data = line[len("data:") :].strip()
             if data == "[DONE]":
                 done = True
                 break
@@ -61,10 +61,13 @@ def _merge_tool_call_delta(
         idx = tc.get("index", 0)
         # Extend list if needed
         while len(accumulated) <= idx:
-            accumulated.append({
-                "id": "", "type": "function",
-                "function": {"name": "", "arguments": ""},
-            })
+            accumulated.append(
+                {
+                    "id": "",
+                    "type": "function",
+                    "function": {"name": "", "arguments": ""},
+                }
+            )
 
         entry = accumulated[idx]
         if tc.get("id"):

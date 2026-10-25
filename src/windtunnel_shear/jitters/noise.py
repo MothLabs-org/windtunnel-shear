@@ -8,11 +8,31 @@ import string
 from windtunnel_shear.core.models import InterceptedRequest
 
 _TYPO_MAP: dict[str, str] = {
-    "a": "s", "b": "v", "c": "x", "d": "f", "e": "r",
-    "f": "g", "g": "h", "h": "j", "i": "o", "j": "k",
-    "k": "l", "l": ";", "m": "n", "n": "b", "o": "p",
-    "p": "o", "q": "w", "r": "t", "s": "d", "t": "y",
-    "u": "i", "v": "c", "w": "e", "x": "z", "y": "u",
+    "a": "s",
+    "b": "v",
+    "c": "x",
+    "d": "f",
+    "e": "r",
+    "f": "g",
+    "g": "h",
+    "h": "j",
+    "i": "o",
+    "j": "k",
+    "k": "l",
+    "l": ";",
+    "m": "n",
+    "n": "b",
+    "o": "p",
+    "p": "o",
+    "q": "w",
+    "r": "t",
+    "s": "d",
+    "t": "y",
+    "u": "i",
+    "v": "c",
+    "w": "e",
+    "x": "z",
+    "y": "u",
     "z": "x",
 }
 
@@ -52,7 +72,10 @@ def _inject_noise(text: str, ratio: float, rng: random.Random) -> str:
 
 
 def apply_noise(
-    request: InterceptedRequest, ratio: float, *, seed: int | None = None,
+    request: InterceptedRequest,
+    ratio: float,
+    *,
+    seed: int | None = None,
 ) -> InterceptedRequest:
     """Inject random typos into user messages.
 
