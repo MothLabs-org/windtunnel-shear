@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "windtunnel-shear"
-version = "0.1.0.post1"
+version = "0.1.1"
 description = "Wind shear for LLM APIs — intercept, mutate, record, replay, and stress-test any LLM conversation."
 readme = "README.md"
 license = {text = "MIT"}
